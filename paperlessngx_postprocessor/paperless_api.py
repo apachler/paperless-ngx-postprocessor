@@ -28,6 +28,7 @@ class PaperlessAPI:
         self._paperless_api_version = 3
 
         self._common_headers = {"Authorization": f"Token {self._auth_token}",
+                                "Content-Type": "application/json",
                                 "Accept": f"application/json; version={self._paperless_api_version}"}
 
     def _get_custom_fields(self):
@@ -109,7 +110,7 @@ class PaperlessAPI:
     def patch_document(self, document_id, data):
         response = requests.patch(f"{self._api_url}/documents/{document_id}/",
                                   headers = self._common_headers,
-                                  data = data)
+                                  json = data)
         if not response.ok:
             self._log_request_error(response)
         return response
